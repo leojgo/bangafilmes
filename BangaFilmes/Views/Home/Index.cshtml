@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BangaFilmes.Models.Movie>
+
+@{
+    ViewBag.Title = "BangaFilmes";
+}
+
+
+    <div id="content" class="span12">
+        <div class="cinema">
+            <ul class="thumbnails">
+                <div class="thumbnails" >
+                    
+                    @foreach (var movie in Model)
+                    {
+                        <li class=""><div class="thumbnail"><img class="img-rounded" src=@movie.PosterUrl alt="" >@movie.OriginalTitle</div></li>
+                    }
+                        
+                                
+                </div>    
+            </ul>
+        </div>
+    </div>
+
+
+     

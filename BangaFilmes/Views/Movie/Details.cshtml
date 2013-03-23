@@ -1,0 +1,78 @@
+﻿@model BangaFilmes.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Movie</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ImdbId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ImdbId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OriginalTitle)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OriginalTitle)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Overview)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Overview)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PosterUrl)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PosterUrl)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ReleaseDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReleaseDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Runtime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Runtime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.VoteAverage)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VoteAverage)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.VoteCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VoteCount)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

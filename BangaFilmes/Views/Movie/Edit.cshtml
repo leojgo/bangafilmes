@@ -1,0 +1,101 @@
+﻿@model BangaFilmes.Models.Movie
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Movie</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ImdbId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ImdbId)
+            @Html.ValidationMessageFor(model => model.ImdbId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OriginalTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OriginalTitle)
+            @Html.ValidationMessageFor(model => model.OriginalTitle)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Overview)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Overview)
+            @Html.ValidationMessageFor(model => model.Overview)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PosterUrl)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PosterUrl)
+            @Html.ValidationMessageFor(model => model.PosterUrl)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ReleaseDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReleaseDate)
+            @Html.ValidationMessageFor(model => model.ReleaseDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Runtime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Runtime)
+            @Html.ValidationMessageFor(model => model.Runtime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VoteAverage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VoteAverage)
+            @Html.ValidationMessageFor(model => model.VoteAverage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VoteCount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VoteCount)
+            @Html.ValidationMessageFor(model => model.VoteCount)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

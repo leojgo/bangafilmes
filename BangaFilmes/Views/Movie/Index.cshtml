@@ -1,0 +1,81 @@
+﻿@model IEnumerable<BangaFilmes.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImdbId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OriginalTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Overview)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PosterUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Runtime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VoteAverage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VoteCount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImdbId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OriginalTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Overview)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PosterUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Runtime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoteAverage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoteCount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

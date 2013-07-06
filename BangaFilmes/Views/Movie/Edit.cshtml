@@ -1,5 +1,6 @@
 ﻿@model BangaFilmes.Models.Movie
 
+
 @{
     ViewBag.Title = "Edit";
 }
@@ -29,12 +30,37 @@
             @Html.EditorFor(model => model.OriginalTitle)
             @Html.ValidationMessageFor(model => model.OriginalTitle)
         </div>
+    
+        <div class="editor-field">
+    <table>
+        <tr>
+            @{
+                int cnt = 0;
+                List<BangaFilmes.ViewModels.MovieGenreViewModel> genres = ViewBag.Genres;
+
+                foreach (var genre in genres) {
+                    if (cnt++ % 3 == 0) {
+                        @:  </tr> <tr> 
+                    }
+                    @: <td> 
+                        <input type="checkbox" 
+                               name="selectedGenres" 
+                               value="@genre.GenreId" 
+                               @(Html.Raw(genre.Assigned ? "checked=\"checked\"" : "")) /> 
+                         @:  @genre.Name
+                    @:</td>
+                }
+                @: </tr>
+            }
+    </table>
+</div>
+
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Overview)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Overview)
+            @Html.TextAreaFor(model => model.Overview)
             @Html.ValidationMessageFor(model => model.Overview)
         </div>
 
@@ -91,6 +117,8 @@
         </p>
     </fieldset>
 }
+}
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

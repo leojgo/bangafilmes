@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TMDbLib.Objects.Search.SearchMovie>
+
+@{
+    ViewBag.Title = "Busca";
+}
+
+<form method="POST" action="Search" >
+  <input type="text" class="span2" name="name" />
+  <input type="Submit" name="Submit" value="Search"/>
+ 
+</form>
+
+@if (IsPost)
+{
+    <ul class="thumbnails">
+        @foreach (var myItem in Model)
+        {
+            var imagePath ="";
+                        
+            if (myItem.PosterPath.IsEmpty())
+            {
+                imagePath = "/capas/noimage.jpg";
+            }
+            else
+            {
+                imagePath = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w154/" + myItem.PosterPath;
+            }
+            
+            <div id="enclosure" style="float:left;height: 310px; width:154px;" class="span2">            
+                <li class="span2">
+                <a href="#" class="thumbnail">
+                <img src="@Server.HtmlEncode(imagePath)" class="img-rounded"style="max-height: 234px;" alt=""/>
+                
+                <h4>@Html.DisplayFor(modelItem => myItem.Title)</h4>
+                </a>
+                </li>            
+            </div>
+            
+        }
+    </ul>
+}
+
+

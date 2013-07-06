@@ -6,6 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BangaFilmes.Models;
+using BangaFilmes.ViewModels;
+using TMDbLib.Client;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Search;
 
 namespace BangaFilmes.Controllers
 {
@@ -63,12 +67,35 @@ namespace BangaFilmes.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Movie movie = db.Movies.Find(id);
+            /*Movie movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
-            }
+            }*/
+
+            Movie movie = db.Movies
+                .Include(i => i.Genres)
+                .Where(i => i.Id == id)
+                .Single();
+            PopulateAssignedGenreData(movie);
             return View(movie);
+        }
+
+        private void PopulateAssignedGenreData(Movie movie)
+        {
+            var allGenres = db.Genres;
+            var movieGenres = new HashSet<int>(movie.Genres.Select(c => c.Id));
+            var viewModel = new List<MovieGenreViewModel>();
+            foreach (var genre in allGenres)
+            {
+                viewModel.Add(new MovieGenreViewModel
+                {
+                    GenreId = genre.Id,
+                    Name = genre.Name,
+                    Assigned = movieGenres.Contains(genre.Id)
+                });
+            }
+            ViewBag.Genres = viewModel;
         }
 
         //
@@ -115,6 +142,27 @@ namespace BangaFilmes.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //
+        // GET: /Movie/Search
+
+       
+        public ActionResult Search()
+        {            
+            return View();
+        }
+
+        //
+        // POST: /Movie/Search/name
+
+        [HttpPost]
+        public ActionResult Search(string name)
+        {
+            TMDbClient tmdbApi = new TMDbClient("2e1933e8dc33e39f5889d94f1f4e0ef2");
+            SearchContainer<SearchMovie> results = tmdbApi.SearchMovie(name,"pt");
+
+            return View(results.Results);
         }
     }
 }

@@ -9,13 +9,16 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ImdbId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.OriginalTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genres)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Overview)
@@ -49,6 +52,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.OriginalTitle)
         </td>
+        <td>
+    @{
+        foreach (var genre in item.Genres)
+        {
+            @genre.Id @:  @genre.Name <br />
+        }
+    }
+</td>
         <td>
             @Html.DisplayFor(modelItem => item.Overview)
         </td>

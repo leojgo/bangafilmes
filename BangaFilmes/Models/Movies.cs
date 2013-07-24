@@ -20,7 +20,7 @@ namespace BangaFilmes.Models
         public double? VoteAverage { get; set; }
         public int? VoteCount { get; set; }
 
-        public virtual IList<Genre> Genres { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
 
         public Movie()
         {
@@ -35,6 +35,11 @@ namespace BangaFilmes.Models
         public string Name { get; set; }
 
         public virtual IList<Movie> Movies {get; private set;}
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 
     public class MovieCatalog : DbContext

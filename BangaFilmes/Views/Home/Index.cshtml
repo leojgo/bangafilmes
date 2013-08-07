@@ -12,7 +12,7 @@
                     
                     @foreach (var movie in Model)
                     {
-                        <li class=""><div class="thumbnail"><img class="img-rounded" src=@movie.PosterUrl alt="" >@movie.OriginalTitle</div></li>
+                        <li class=""><a href=@Url.Action("Details","Movie",new{id=movie.Id},null )> <div class="thumbnail"><img class="img-rounded" src=@movie.PosterUrl alt="" >@movie.OriginalTitle</div></a></li>
                     }
                         
                                 

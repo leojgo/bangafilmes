@@ -39,7 +39,7 @@ namespace BangaFilmes.Models
 
     public class MovieCatalog : DbContext
     {
-        //public MovieCatalog() : base("TesteConnection"){}
+        public MovieCatalog() : base("TesteConnection"){}
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }

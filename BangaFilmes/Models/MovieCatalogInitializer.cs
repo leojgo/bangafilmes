@@ -13,7 +13,7 @@ namespace BangaFilmes.Models
             var filmes = new List<Movie>
             {
                 new Movie { OriginalTitle="Argo",PosterUrl=@"/capas/Argo.jpg" },
-                new Movie { OriginalTitle="Avatar",PosterUrl=@"/capas/Avtar.jpg" },
+                new Movie { OriginalTitle="Avatar",PosterUrl=@"/capas/Avatar.jpg" },
                 new Movie { OriginalTitle="Batman",PosterUrl=@"/capas/Batman.jpg" },
                 new Movie { OriginalTitle="Devil",PosterUrl=@"/capas/Devil.jpg" },
                 new Movie { OriginalTitle="Extracted",PosterUrl=@"/capas/Extracted.jpg" }                

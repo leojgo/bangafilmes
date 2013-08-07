@@ -13,7 +13,7 @@ using TMDbLib.Objects.Search;
 
 namespace BangaFilmes.Controllers
 {
-    public class MovieController : Controller
+    public class MovieController : BootstrapBaseController
     {
         private MovieCatalog db = new MovieCatalog();
 
@@ -38,6 +38,7 @@ namespace BangaFilmes.Controllers
             return View(movie);
         }
 
+        
         //
         // GET: /Movie/Create
 
@@ -159,10 +160,15 @@ namespace BangaFilmes.Controllers
         [HttpPost]
         public ActionResult Search(string name)
         {
-            TMDbClient tmdbApi = new TMDbClient("2e1933e8dc33e39f5889d94f1f4e0ef2");
-            SearchContainer<SearchMovie> results = tmdbApi.SearchMovie(name,"pt");
+            var tmdbApi = new TMDbClient("44269fba8ce9d1f3c69f287e72d867f9", false, "http://private-b65b-themoviedb.apiary.io");
 
+            tmdbApi.GetConfig();
+            var results = tmdbApi.SearchMovie("Matrix","pt");
+            //SearchContainer<SearchMovie> results = tmdbApi.SearchMovie("Matrix");
             return View(results.Results);
+            //SearchContainer<SearchMovie> results = tmdbApi.SearchMovie(name);
+
+            //return View(results.Results);
         }
     }
 }

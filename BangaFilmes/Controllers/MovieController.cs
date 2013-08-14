@@ -75,9 +75,7 @@ namespace BangaFilmes.Controllers
             }*/
 
             Movie movie = db.Movies
-                .Include(i => i.Genres)
-                .Where(i => i.Id == id)
-                .Single();
+                            .Include(i => i.Genres).Single(i => i.Id == id);
             PopulateAssignedGenreData(movie);
             return View(movie);
         }
@@ -160,7 +158,7 @@ namespace BangaFilmes.Controllers
         [HttpPost]
         public ActionResult Search(string name)
         {
-            var tmdbApi = new TMDbClient("44269fba8ce9d1f3c69f287e72d867f9", false, "http://private-b65b-themoviedb.apiary.io");
+            var tmdbApi = new TMDbClient("470fd2ec8853e25d2f8d86f685d2270e", false, "http://api.themoviedb.org/3/");
 
             tmdbApi.GetConfig();
             var results = tmdbApi.SearchMovie("Matrix","pt");

@@ -1,10 +1,19 @@
 ﻿@model BangaFilmes.Models.Movie
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Novo";
 }
 
-<h2>Create</h2>
+<h2>Adicionar Filme</h2>
+<label>Digite o nome do filme:</label>
+<input id="titulo" type="text"></input>
+<button id="movie" type="submit">buscar</button>
+<br/>
+<div class="image_carousel">
+    <div id="foo1" style="height: 172px;"></div>
+    <div class="clearfix"></div>
+</div>
+<button id="btnGetInfo" type="submit">Carregar informações</button>
 
 @using (Html.BeginForm("Create", "MovieController", FormMethod.Post, new { @class = "well form-horizontal" }))
 {
@@ -18,17 +27,26 @@
                 @Html.LabelFor(model => model.ImdbId)
             </div>
             <div class="controls">
-                @Html.EditorFor(model => model.ImdbId)
+                @Html.TextBoxFor(model => model.ImdbId, new { data_bind = "value: imdb_id" })
                 @Html.ValidationMessageFor(model => model.ImdbId)
             </div>
         </div>
-        
+        <div class="control-group">
+            <div class="control-label">
+                @Html.LabelFor(model => model.Title)
+            </div>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.Title, new { data_bind = "value: title" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
         <div class="control-group">
             <div class="control-label">
                 @Html.LabelFor(model => model.OriginalTitle)
             </div>
             <div class="controls">
-                @Html.EditorFor(model => model.OriginalTitle)
+                @Html.TextBoxFor(model => model.OriginalTitle, new { data_bind = "value: original_title" })
                 @Html.ValidationMessageFor(model => model.OriginalTitle)
             </div>
         </div>
@@ -38,7 +56,7 @@
                 @Html.LabelFor(model => model.Overview)
             </div>
             <div class="controls">
-                @Html.TextAreaFor(model => model.Overview, new {cols=35, @rows="8",style="width:500px;"})
+                @Html.TextAreaFor(model => model.Overview, new { cols = 35, @rows = "8", style = "width:500px;",data_bind = "value: overview"  })
                 @Html.ValidationMessageFor(model => model.Overview)
             </div>
         </div>
@@ -47,7 +65,7 @@
                 @Html.LabelFor(model => model.PosterUrl)
             </div>
             <div class="controls">
-                @Html.EditorFor(model => model.PosterUrl)
+                @Html.TextBoxFor(model => model.PosterUrl)
                 @Html.ValidationMessageFor(model => model.PosterUrl)
             </div>
         </div>
@@ -55,23 +73,16 @@
             @Html.LabelFor(model => model.ReleaseDate)
         </div>
         <div class="controls">
-            @Html.EditorFor(model => model.ReleaseDate)
+            @Html.TextBoxFor(model => model.ReleaseDate, new { data_bind = "value: release_date" })
             @Html.ValidationMessageFor(model => model.ReleaseDate)
         </div>
-
-        <div class="control-label">
-            @Html.LabelFor(model => model.Title)
-        </div>
-        <div class="controls">
-            @Html.EditorFor(model => model.Title)
-            @Html.ValidationMessageFor(model => model.Title)
-        </div>
+       
 
         <div class="control-label">
             @Html.LabelFor(model => model.Runtime)
         </div>
         <div class="controls">
-            @Html.EditorFor(model => model.Runtime)
+            @Html.TextBoxFor(model => model.Runtime, new { data_bind = "value: runtime" })
             @Html.ValidationMessageFor(model => model.Runtime)
         </div>
 
@@ -79,7 +90,7 @@
             @Html.LabelFor(model => model.VoteAverage)
         </div>
         <div class="controls">
-            @Html.EditorFor(model => model.VoteAverage)
+            @Html.TextBoxFor(model => model.VoteAverage, new { data_bind = "value: vote_average" })
             @Html.ValidationMessageFor(model => model.VoteAverage)
         </div>
 
@@ -87,7 +98,7 @@
             @Html.LabelFor(model => model.VoteCount)
         </div>
         <div class="controls">
-            @Html.EditorFor(model => model.VoteCount)
+            @Html.TextBoxFor(model => model.VoteCount, new { data_bind = "value: vote_count" })
             @Html.ValidationMessageFor(model => model.VoteCount)
         </div>
 
@@ -97,10 +108,114 @@
     </fieldset>
 }
 
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js
+"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.5/knockout.mapping.js
+"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.caroufredsel/6.1.0/jquery.carouFredSel.packed.js
+"></script>
+    <script type="text/javascript">
+        viewModel = {
+            imdb_id: ko.observable(),
+            title: ko.observable(),
+            original_title: ko.observable(),
+            overview: ko.observable(),
+            release_date: ko.observable(),
+            runtime: ko.observable(),
+            vote_average: ko.observable(),
+            vote_count: ko.observable()
+        };
+
+        $(document).ready(function () {
+
+            var url = 'http://api.themoviedb.org/3/',
+        mode = 'search/movie?query=',
+        input,
+        movieName,
+        key = '&api_key=470fd2ec8853e25d2f8d86f685d2270e&language=pt';
+
+            movieName = encodeURI(input);
+
+            $('#movie').click(function () {
+                var input = $('#titulo').val();
+                $.ajax({
+                    type: 'GET',
+                    url: url + mode + input + key,
+                    async: true,
+                    contentType: 'application/json',
+                    dataType: 'jsonp',
+                    success: getFilmes,
+                    error: function (e) {
+                        console.log("Erro: " + e.message);
+                    }
+                });
+            });
+
+
+            $('#btnGetInfo').click(function () {
+                var id = $("img[checked]").attr('tmdb');
+                console.log('Id selecionado = ' + id);
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://api.themoviedb.org/3/movie/' + id + '?api_key=470fd2ec8853e25d2f8d86f685d2270e&language=pt',
+                    async: true,
+                    contentType: 'application/json',
+                    dataType: 'jsonp',
+                    success: atualizaInfo,
+                    error: function (e) {
+                        console.log("Erro: " + e.message);
+                    }
+                });
+            });
+
+            function atualizaInfo(data) {
+                console.log('atualiza filme');
+                console.log(data);
+                //viewModel = ko.mapping.fromJS(data);        
+                ko.mapping.fromJS(data, {}, viewModel);
+            }
+
+
+            var filmes;
+
+            function getFilmes(data) {
+                console.log(data.results[0]);
+                filmes = data.results;
+                mostraCarrossel(data);
+            }
+
+            function mostraCarrossel(data) {
+                $("#foo1").empty();
+                data.results.forEach(function (filme) {
+                    if (filme.poster_path) {
+                        $('<img/>', {
+                            src: 'http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92/' + filme.poster_path,
+                            title: filme.title,
+                            width: "92",
+                            height: "138",
+                            tmdb: filme.id
+                        }).appendTo("#foo1");
+                    }
+                });
+                $("#foo1").carouFredSel({
+                    auto: false,
+                    prev: "left",
+                    next: "right"
+                });
+                $("#foo1 img").click(function () {
+                    $("#foo1 img").css("background-color", "white").removeAttr('checked');
+                    $(this).css("background-color", "blue");
+                    $(this).attr('checked', 'nao');
+
+                });
+            }
+            ko.applyBindings(viewModel);
+        });
+    </script>
 }

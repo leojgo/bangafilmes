@@ -19,13 +19,12 @@ namespace BangaFilmes
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            Database.SetInitializer<MovieCatalog>(new MovieCatalogInitializer());
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(double), new DoubleModelBinder());
-           
+            Database.SetInitializer<MovieCatalog>(new MovieCatalogInitializer());
             BootstrapSupport.BootstrapBundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
             
             //BootstrapMvcSample.ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);

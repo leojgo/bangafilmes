@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace BangaFilmes.Models
 {
-    public class MovieCatalogInitializer : DropCreateDatabaseAlways<MovieCatalog>
+    public class MovieCatalogInitializer : DropCreateDatabaseIfModelChanges<MovieCatalog>
     {
         protected override void Seed(MovieCatalog context)
         {

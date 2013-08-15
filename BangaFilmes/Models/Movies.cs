@@ -17,8 +17,7 @@ namespace BangaFilmes.Models
         public DateTime? ReleaseDate { get; set; }
         public string Title { get; set; }
         public int? Runtime { get; set; }        
-        public double? VoteAverage { get; set; }
-        public int? VoteCount { get; set; }
+      
 
         public virtual ICollection<Genre> Genres { get; set; }
 
@@ -54,4 +53,6 @@ namespace BangaFilmes.Models
             modelBuilder.Entity<Genre>().Property(t => t.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
     }
+    
+    
 }

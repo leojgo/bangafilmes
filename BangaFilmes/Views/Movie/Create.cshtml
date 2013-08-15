@@ -15,7 +15,7 @@
 </div>
 <button id="btnGetInfo" type="submit">Carregar informações</button>
 
-@using (Html.BeginForm("Create", "MovieController", FormMethod.Post, new { @class = "well form-horizontal" }))
+@using (Html.BeginForm("Create", "movie", FormMethod.Post, new { @class = "well form-horizontal" }))
 {
     @Html.ValidationSummary(true)
 

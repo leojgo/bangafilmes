@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
@@ -16,7 +17,10 @@ namespace BangaFilmes.Models
         public string PosterUrl { get; set; }        
         public DateTime? ReleaseDate { get; set; }
         public string Title { get; set; }
-        public int? Runtime { get; set; }        
+        public int? Runtime { get; set; }
+        [Required]
+        public string MoviePath { get; set; }
+        public string SubtitlePath { get; set; }
       
 
         public virtual ICollection<Genre> Genres { get; set; }
@@ -25,6 +29,8 @@ namespace BangaFilmes.Models
         {
             this.Genres = new List<Genre>();
         }
+        
+
     }
 
 

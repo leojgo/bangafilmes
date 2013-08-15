@@ -36,10 +36,10 @@
             @Html.DisplayNameFor(model => model.Runtime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VoteAverage)
+            @Html.DisplayNameFor(model => model.MoviePath)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VoteCount)
+           Legenda
         </th>
         <th></th>
     </tr>
@@ -76,10 +76,10 @@
             @Html.DisplayFor(modelItem => item.Runtime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VoteAverage)
+            @Html.DisplayFor(modelItem => item.MoviePath)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VoteCount)
+            @Html.DisplayFor(modelItem => item.SubtitlePath)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace BangaFilmes.Models
 {
@@ -13,7 +14,8 @@ namespace BangaFilmes.Models
         public string ImdbId { get; set; }
         public string OriginalTitle { get; set; }
         public string Overview { get; set; }
-        public string PosterUrl { get; set; }        
+        public string PosterUrl { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? ReleaseDate { get; set; }
         public string Title { get; set; }
         public int? Runtime { get; set; }        

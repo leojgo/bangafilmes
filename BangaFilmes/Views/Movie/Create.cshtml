@@ -15,7 +15,7 @@
 </div>
 <button id="btnGetInfo" type="submit">Carregar informações</button>
 
-@using (Html.BeginForm("Create", "MovieController", FormMethod.Post, new { @class = "well form-horizontal" }))
+@using (Html.BeginForm("Create", "movie", FormMethod.Post, new { @class = "well form-horizontal" }))
 {
     @Html.ValidationSummary(true)
 
@@ -49,6 +49,29 @@
                 @Html.TextBoxFor(model => model.OriginalTitle, new { data_bind = "value: original_title" })
                 @Html.ValidationMessageFor(model => model.OriginalTitle)
             </div>
+        </div>
+        <div class="controls">
+         <table>
+        <tr>
+            @{
+                int cnt = 0;
+                List<BangaFilmes.ViewModels.MovieGenreViewModel> genres = ViewBag.Genres;
+
+                foreach (var genre in genres) {
+                    if (cnt++ % 3 == 0) {
+                        @:  </tr> <tr> 
+                    }
+                    @: <td> 
+                        <input type="checkbox" 
+                               name="selectedGenres" 
+                               value="@genre.GenreId" 
+                               @(Html.Raw(genre.Assigned ? "checked=\"checked\"" : "")) /> 
+                         @:  @genre.Name
+                    @:</td>
+                }
+                @: </tr>
+            }
+    </table>
         </div>
 
         <div class="control-group">
@@ -195,7 +218,7 @@
                 data.results.forEach(function (filme) {
                     if (filme.poster_path) {
                         $('<img/>', {
-                            src: 'http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92/' + filme.poster_path,
+                            src: 'http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92' + filme.poster_path,
                             title: filme.title,
                             width: "92",
                             height: "138",

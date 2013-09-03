@@ -44,6 +44,18 @@ namespace BangaFilmes.Controllers
 
         public ActionResult Create()
         {
+            var allGenres = db.Genres;            
+            var viewModel = new List<MovieGenreViewModel>();
+            foreach (var genre in allGenres)
+            {
+                viewModel.Add(new MovieGenreViewModel
+                {
+                    GenreId = genre.Id,
+                    Name = genre.Name,
+                    Assigned=false
+                });
+            }
+            ViewBag.Genres = viewModel;
             return View();
         }
 

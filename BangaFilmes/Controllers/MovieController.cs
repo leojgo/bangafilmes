@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BangaFilmes.Models;
 using BangaFilmes.ViewModels;
-using TMDbLib.Client;
-using TMDbLib.Objects.General;
-using TMDbLib.Objects.Search;
 
 namespace BangaFilmes.Controllers
 {
@@ -62,11 +57,12 @@ namespace BangaFilmes.Controllers
         //
         // POST: /Movie/Create
 
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         public ActionResult Create(Movie movie)
         {
             if (ModelState.IsValid)
             {
+                movie.PosterUrl = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92" + movie.PosterUrl;
                 db.Movies.Add(movie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -167,18 +163,18 @@ namespace BangaFilmes.Controllers
         //
         // POST: /Movie/Search/name
 
-        [HttpPost]
-        public ActionResult Search(string name)
-        {
-            var tmdbApi = new TMDbClient("470fd2ec8853e25d2f8d86f685d2270e", false, "http://api.themoviedb.org/3/");
+        //[HttpPost]
+        //public ActionResult Search(string name)
+        //{
+        //    var tmdbApi = new TMDbClient("470fd2ec8853e25d2f8d86f685d2270e", false, "http://api.themoviedb.org/3/");
 
-            tmdbApi.GetConfig();
-            var results = tmdbApi.SearchMovie("Matrix","pt");
-            //SearchContainer<SearchMovie> results = tmdbApi.SearchMovie("Matrix");
-            return View(results.Results);
-            //SearchContainer<SearchMovie> results = tmdbApi.SearchMovie(name);
+        //    tmdbApi.GetConfig();
+        //    var results = tmdbApi.SearchMovie("Matrix","pt");
+        //    //SearchContainer<SearchMovie> results = tmdbApi.SearchMovie("Matrix");
+        //    return View(results.Results);
+        //    //SearchContainer<SearchMovie> results = tmdbApi.SearchMovie(name);
 
-            //return View(results.Results);
-        }
+        //    //return View(results.Results);
+        // }
     }
 }

@@ -11,6 +11,7 @@
 </p>
 <table class="table">
     <tr>
+<<<<<<< HEAD
         <th>
             Título
         </th>
@@ -31,12 +32,23 @@
         </th>
         <th>
             Duração
+=======
+         <th>
+            Título
+        </th>
+        <th>
+            Título Original
+        </th>
+        <th>
+            Gêneros
+>>>>>>> 4c78f1f739d8906574ca9d413c3b45dbf25ad62a
         </th>
         
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
+<<<<<<< HEAD
     <tr>        
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -65,6 +77,23 @@
             @Html.DisplayFor(modelItem => item.Runtime)
         </td>
         
+=======
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OriginalTitle)
+        </td>
+        <td>
+            @{
+                foreach (var genre in item.Genres)
+                {
+                    @genre.Id @:  @genre.Name <br />
+                }
+            }
+        </td>
+>>>>>>> 4c78f1f739d8906574ca9d413c3b45dbf25ad62a
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

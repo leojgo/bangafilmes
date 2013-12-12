@@ -6781,6 +6781,8 @@ select {
     margin: 7px;
     display: block;
     float: left;
+    cursor: pointer;
+    cursor: hand;
 }
 #foo1 {
     width: 92px;
@@ -6791,3 +6793,4 @@ select {
     float: none;
     clear: both;
 }
+

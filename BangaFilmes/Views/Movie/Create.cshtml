@@ -88,7 +88,7 @@
                 @Html.LabelFor(model => model.PosterUrl)
             </div>
             <div class="controls">
-                @Html.TextBoxFor(model => model.PosterUrl)
+                @Html.TextBoxFor(model => model.PosterUrl, new { data_bind = "value: poster_path" })
                 @Html.ValidationMessageFor(model => model.PosterUrl)
             </div>
         </div>
@@ -110,19 +110,19 @@
         </div>
 
         <div class="control-label">
-            @Html.LabelFor(model => model.VoteAverage)
+            @Html.LabelFor(model => model.MoviePath)
         </div>
         <div class="controls">
-            @Html.TextBoxFor(model => model.VoteAverage, new { data_bind = "value: vote_average" })
-            @Html.ValidationMessageFor(model => model.VoteAverage)
+            @Html.TextBoxFor(model => model.MoviePath, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.MoviePath)
         </div>
 
         <div class="control-label">
-            @Html.LabelFor(model => model.VoteCount)
+            @Html.LabelFor(model => model.SubtitlePath)
         </div>
         <div class="controls">
-            @Html.TextBoxFor(model => model.VoteCount, new { data_bind = "value: vote_count" })
-            @Html.ValidationMessageFor(model => model.VoteCount)
+            @Html.TextBoxFor(model => model.SubtitlePath, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.SubtitlePath)
         </div>
 
         <p>
@@ -133,7 +133,7 @@
 
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar para listagem", "Index")
 </div>
 
 @section Scripts {
@@ -151,8 +151,7 @@
             overview: ko.observable(),
             release_date: ko.observable(),
             runtime: ko.observable(),
-            vote_average: ko.observable(),
-            vote_count: ko.observable()
+            poster_path: ko.observable()
         };
 
         $(document).ready(function () {

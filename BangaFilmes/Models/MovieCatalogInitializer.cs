@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace BangaFilmes.Models
@@ -10,17 +7,6 @@ namespace BangaFilmes.Models
     {
         protected override void Seed(MovieCatalog context)
         {
-            var filmes = new List<Movie>
-            {
-                new Movie { OriginalTitle="Argo",PosterUrl=@"/capas/Argo.jpg" },
-                new Movie { OriginalTitle="Avatar",PosterUrl=@"/capas/Avatar.jpg" },
-                new Movie { OriginalTitle="Batman",PosterUrl=@"/capas/Batman.jpg" },
-                new Movie { OriginalTitle="Devil",PosterUrl=@"/capas/Devil.jpg" },
-                new Movie { OriginalTitle="Extracted",PosterUrl=@"/capas/Extracted.jpg" }                
-            };
-
-            filmes.ForEach(f => context.Movies.Add(f));
-            context.SaveChanges();
 
             var generos = new List<Genre>
             {
@@ -36,6 +22,20 @@ namespace BangaFilmes.Models
 
             generos.ForEach(g => context.Genres.Add(g));
             context.SaveChanges();
+
+            var filmes = new List<Movie>
+            {
+                new Movie { OriginalTitle="Argo",PosterUrl=@"/capas/Argo.jpg", MoviePath = "argo.mp4"},
+                new Movie { OriginalTitle="Avatar",PosterUrl=@"/capas/Avatar.jpg", MoviePath = "avatar.mp4"},
+                new Movie { OriginalTitle="Batman",PosterUrl=@"/capas/Batman.jpg", MoviePath="batman.mp4" },
+                new Movie { OriginalTitle="Devil",PosterUrl=@"/capas/Devil.jpg", MoviePath="devil.mp4" },
+                new Movie { OriginalTitle="Extracted",PosterUrl=@"/capas/Extracted.jpg", MoviePath="extracted.mp4" }                
+            };
+
+            filmes.ForEach(f => context.Movies.Add(f));
+            context.SaveChanges();
+
+           
         }
     }
 

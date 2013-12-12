@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DoubleModelBinder.cs" />
     <Compile Include="Models\Movies.cs" />
     <Compile Include="Models\MovieCatalogInitializer.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />

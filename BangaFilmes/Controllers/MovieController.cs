@@ -117,7 +117,7 @@ namespace BangaFilmes.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(movie);
+            return RedirectToAction("Index");
         }
 
         //

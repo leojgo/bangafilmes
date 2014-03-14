@@ -120,6 +120,36 @@ namespace BangaFilmes.Controllers
             return RedirectToAction("Index");
         }
 
+        private void UpdateMovieGenres(string[] selectedGenres, Movie movieToUpdate)
+        {
+            if (selectedGenres == null)
+            {
+                movieToUpdate.Genres = new List<Genre>();
+                return;
+            }
+
+            var selectedGenresHS = new HashSet<string>(selectedGenres);
+            var movieGenres = new HashSet<int>
+                (movieToUpdate.Genres.Select(c => c.Id));
+            foreach (var genre in db.Genres)
+            {
+                if (selectedGenresHS.Contains(genre.Id.ToString()))
+                {
+                    if (!movieGenres.Contains(genre.Id))
+                    {
+                        movieToUpdate.Genres.Add(genre);
+                    }
+                }
+                else
+                {
+                    if (movieGenres.Contains(genre.Id))
+                    {
+                        movieToUpdate.Genres.Remove(genre);
+                    }
+                }
+            }
+        }
+
         //
         // GET: /Movie/Delete/5
 

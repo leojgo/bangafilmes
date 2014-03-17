@@ -2,9 +2,11 @@
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using BangaFilmes.Models;
 using BangaFilmes.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace BangaFilmes.Controllers
 {
@@ -33,13 +35,13 @@ namespace BangaFilmes.Controllers
             return View(movie);
         }
 
-        
+
         //
         // GET: /Movie/Create
 
         public ActionResult Create()
         {
-            var allGenres = db.Genres;            
+            var allGenres = db.Genres;
             var viewModel = new List<MovieGenreViewModel>();
             foreach (var genre in allGenres)
             {
@@ -47,7 +49,7 @@ namespace BangaFilmes.Controllers
                 {
                     GenreId = genre.Id,
                     Name = genre.Name,
-                    Assigned=false
+                    Assigned = false
                 });
             }
             ViewBag.Genres = viewModel;
@@ -58,11 +60,12 @@ namespace BangaFilmes.Controllers
         // POST: /Movie/Create
 
         [HttpPost, ActionName("Create")]
-        public ActionResult Create(Movie movie)
+        public ActionResult Create(Movie movie, string[] selectedGenres)
         {
             if (ModelState.IsValid)
             {
                 movie.PosterUrl = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92" + movie.PosterUrl;
+                UpdateMovieGenres(selectedGenres, movie);
                 db.Movies.Add(movie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -74,13 +77,12 @@ namespace BangaFilmes.Controllers
         //
         // GET: /Movie/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int? id = 0)
         {
-            /*Movie movie = db.Movies.Find(id);
-            if (movie == null)
+            if (id == null)
             {
-                return HttpNotFound();
-            }*/
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             Movie movie = db.Movies
                             .Include(i => i.Genres).Single(i => i.Id == id);
@@ -109,15 +111,38 @@ namespace BangaFilmes.Controllers
         // POST: /Movie/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Movie movie)
+        public ActionResult Edit(int? id, string[] selectedGenres)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(movie).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Index");
+
+            var movieToUpdate = db.Movies
+                .Include(m => m.Genres)
+                .Where(m => m.Id == id)
+                .Single();
+
+            if (TryUpdateModel(movieToUpdate))
+            {
+                try
+                {
+
+                    db.Entry(movieToUpdate).State = EntityState.Modified;
+                    UpdateMovieGenres(selectedGenres, movieToUpdate);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (EntityException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            PopulateAssignedGenreData(movieToUpdate);
+            return View(movieToUpdate);
+
+
         }
 
         private void UpdateMovieGenres(string[] selectedGenres, Movie movieToUpdate)
@@ -175,18 +200,18 @@ namespace BangaFilmes.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
+        }*/
 
         //
         // GET: /Movie/Search
 
-       
+
         public ActionResult Search()
-        {            
+        {
             return View();
         }
 

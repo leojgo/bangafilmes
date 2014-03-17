@@ -24,7 +24,10 @@ namespace BangaFilmes
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(double), new DoubleModelBinder());
-            Database.SetInitializer<MovieCatalog>(new MovieCatalogInitializer());
+            #if DEBUG
+                Database.SetInitializer<MovieCatalog>(new MovieCatalogInitializer());
+            #endif
+            
             BootstrapSupport.BootstrapBundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
             
             //BootstrapMvcSample.ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);

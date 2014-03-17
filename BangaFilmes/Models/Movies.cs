@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Infrastructure;
 
 namespace BangaFilmes.Models
 {
@@ -16,11 +16,11 @@ namespace BangaFilmes.Models
         public string OriginalTitle { get; set; }
         public string Overview { get; set; }
         public string PosterUrl { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ReleaseDate { get; set; }
         public string Title { get; set; }
         public int? Runtime { get; set; }
-        [Required]
+        
         public string MoviePath { get; set; }
         public string SubtitlePath { get; set; }
       
@@ -41,7 +41,7 @@ namespace BangaFilmes.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual IList<Movie> Movies {get; private set;}
+        public virtual IList<Movie> Movies {get; set;}
 
         public override string ToString()
         {
@@ -51,13 +51,14 @@ namespace BangaFilmes.Models
 
     public class MovieCatalog : DbContext
     {
-        public MovieCatalog() : base("TesteConnection"){}
+        public MovieCatalog() : base("Test"){}
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
             modelBuilder.Entity<Genre>().Property(t => t.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
     }

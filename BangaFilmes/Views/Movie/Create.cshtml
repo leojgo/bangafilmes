@@ -6,7 +6,7 @@
 
 <h2>Adicionar Filme</h2>
 <label>Digite o nome do filme:</label>
-<input id="titulo" type="text"></input>
+<input id="titulo" type="text"/>
 <button id="movie" type="submit">buscar</button>
 <br/>
 <div class="image_carousel">
@@ -65,8 +65,8 @@
                         <input type="checkbox" 
                                name="selectedGenres" 
                                value="@genre.GenreId" 
-                               @(Html.Raw(genre.Assigned ? "checked=\"checked\"" : "")) /> 
-                         @:  @genre.Name
+                               @(Html.Raw(genre.Assigned ? "checked=\"checked\"" : "")) />
+                    @:  @genre.Name
                     @:</td>
                 }
                 @: </tr>

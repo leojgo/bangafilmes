@@ -6771,26 +6771,4 @@ select {
 }
 
 
-.image_carousel {
-    padding: 15px 0 15px 40px;
-}
-.image_carousel img {
-    border: 1px solid #ccc;
-    background-color: white;
-    padding: 9px;
-    margin: 7px;
-    display: block;
-    float: left;
-    cursor: pointer;
-    cursor: hand;
-}
-#foo1 {
-    width: 92px;
-    height: 150px;
-    overflow: hidden;
-}
-.clearfix {
-    float: none;
-    clear: both;
-}
 
